@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">PopularMoviesStage2</string>
+
+
+    <string name="movie_popular">popular</string>
+    <string name="movie_top_rated">top_rated</string>
+
+
+    <string name="original_title">Original Title :</string>
+    <string name="synopsis">Synopsis :</string>
+    <string name="rating">Rating :</string>
+    <string name="release_date">Release Date :</string>
+
+
+    <string name="no_data_error">An error occured, no data</string>
+
+
+    <string name="no_connection_error">An error occured, no internet connection</string>
+
+
+    <string name="list">list</string>
+
+
+    <string name="popular_sorting">Popular</string>
+    <string name="top_rated_sorting">Top-Rated</string>
+
+    <string name="testWord">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </string>
+
+</resources>

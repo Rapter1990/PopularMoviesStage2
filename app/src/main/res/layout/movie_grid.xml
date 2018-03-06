@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="1"
+            android:rowCount="2"
+            >
+
+            <ImageView
+                android:id="@+id/detail_poster"
+                style="@style/ImageViewGridLayout"
+                 />
+
+            <TextView
+                android:id="@+id/detail_poster_text"
+                style="@style/TextViewGridLayout"
+                />
+
+        </GridLayout>
+    </ScrollView>
+
+</FrameLayout>
