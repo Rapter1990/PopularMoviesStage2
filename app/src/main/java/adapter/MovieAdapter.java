@@ -76,8 +76,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
         }
 
 
-
-
         @Override
         public void onClick(View view) {
             int adapterPosition = getAdapterPosition();
@@ -87,11 +85,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     }
 
-
     public interface MovieAdapterOnClickHandler {
         void onClick(Movie movieData);
     }
-
 
     public void setMovieData(ArrayList<Movie> MovieData) {
         mMovieData = MovieData;

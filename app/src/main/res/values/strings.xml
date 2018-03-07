@@ -35,4 +35,8 @@
         Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </string>
 
+
+    <!-- TODO : 37) Returning arraytlist with its trailer objects with its attributes -->
+    <string name="favorites_sorting">Favorites</string>
+
 </resources>

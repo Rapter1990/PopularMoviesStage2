@@ -11,4 +11,11 @@
     <item
         android:id="@+id/top_rated"
         android:title="@string/top_rated_sorting"/>
+
+    <!--TODO : 38) Defining favorites in the sorting part -->
+    <item
+        android:id="@+id/favorites"
+        android:title="@string/favorites_sorting"/>
+
+
 </menu>

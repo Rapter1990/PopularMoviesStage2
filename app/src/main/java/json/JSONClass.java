@@ -75,7 +75,7 @@ public final class JSONClass {
     }
 
     // TODO : 14) Creating getReviewStringsFromJson to get parsed Review Date
-    public static ArrayList<Review> getReviewStringsFromJson(String reviewJsonStr) throws JSONException{
+    public static ArrayList<Review> getReviewStringsFromJson(Context context,String reviewJsonStr) throws JSONException{
 
         // TODO : 15) Defining results attribute
         final String RESULTS = "results";
@@ -123,7 +123,7 @@ public final class JSONClass {
     }
 
     // TODO : 25) Creating getTrailerStringsFromJson to get parsed Trailer Date
-    public static ArrayList<Trailer> getTrailerStringsFromJson(String trailerJsonStr) throws JSONException {
+    public static ArrayList<Trailer> getTrailerStringsFromJson(Context context,String trailerJsonStr) throws JSONException {
 
         // TODO : 26) Defining results attribute
         final String RESULTS = "results";
