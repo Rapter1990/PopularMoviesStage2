@@ -163,7 +163,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_star"
+        android:src="@drawable/fav_heart_unselected"
         app:layout_anchor="@id/main.appbar"
         app:layout_anchorGravity="bottom|right|end"
         />

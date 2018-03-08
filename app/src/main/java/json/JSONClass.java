@@ -67,8 +67,6 @@ public final class JSONClass {
 
             }
 
-
-
             return JSONparsedMovieData;
         }
 

@@ -39,4 +39,10 @@
     <!-- TODO : 37) Returning arraytlist with its trailer objects with its attributes -->
     <string name="favorites_sorting">Favorites</string>
 
+
+    <string name="trailer_name">Trailer Name</string>
+    <string name="trailer_type">Trailer Type</string>
+    <string name="author_review">Author Name</string>
+    <string name="content_review">Content Review</string>
+
 </resources>
