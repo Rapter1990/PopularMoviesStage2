@@ -60,5 +60,10 @@ public class Trailer implements Serializable {
     public void setType(String type) {
         this.type = type;
     }
+
+    // TODO : 108 ) Getting video from URL
+    public String getURL(){
+        return "https://www.youtube.com/watch?v=" + getKey();
+    }
 }
 
