@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
@@ -23,6 +24,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView plot;
     private Movie movieData;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,9 @@ public class DetailActivity extends AppCompatActivity {
         releaseDate = findViewById(R.id.releaseDateTextView);
         plot = findViewById(R.id.moviePlotText);
 
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         displayMovieInformation();
     }

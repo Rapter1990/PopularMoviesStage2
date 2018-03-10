@@ -14,7 +14,7 @@ public class Review implements Serializable{
     // TODO : 10) Defining reviews of each author
     private String review;
 
-    // TODO : 112 ) Defining id of review
+    // TODO : 112 ) Defining url of review
     public String url;
 
     // TODO : 11) Defining empty constuctor
