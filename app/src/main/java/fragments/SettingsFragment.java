@@ -11,11 +11,11 @@ import android.support.v7.preference.PreferenceScreen;
 import com.example.android.popularmoviesstage2.R;
 
 
-// TODO : 117 ) Creating SettingsFragment for defining ListPreference
+// TODO : 119 ) Creating SettingsFragment for defining ListPreference
 public class SettingsFragment extends PreferenceFragmentCompat
         implements SharedPreferences.OnSharedPreferenceChangeListener{
 
-    // TODO : 119 ) Overriding onCreatePreferences -->
+    // TODO : 120 ) Overriding onCreatePreferences -->
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.pref_general);
@@ -33,7 +33,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
         }
     }
 
-    // TODO : 120 ) Overriding setPreferenceSummary -->
+    // TODO : 121 ) Overriding setPreferenceSummary -->
     public void setPreferenceSummary(Preference preference, Object value) {
         String prefStringValue = value.toString();
         /* For list preferences, look up the correct display value in */
@@ -49,7 +49,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
         }
     }
 
-    // TODO : 121 ) Overriding onStart -->
+    // TODO : 122 ) Overriding onStart -->
     @Override
     public void onStart() {
         super.onStart();
@@ -58,7 +58,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 .registerOnSharedPreferenceChangeListener(this);
     }
 
-    // TODO : 122 ) Overriding onStop -->
+    // TODO : 123 ) Overriding onStop -->
     @Override
     public void onStop() {
         super.onStop();
@@ -67,7 +67,7 @@ public class SettingsFragment extends PreferenceFragmentCompat
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    // TODO : 123 ) Overriding onSharedPreferenceChanged -->
+    // TODO : 124 ) Overriding onSharedPreferenceChanged -->
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Preference preference = findPreference(key);

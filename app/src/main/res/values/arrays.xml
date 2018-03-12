@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- TODO : 116 ) Defining labels in arrays.xml -->
+<!-- TODO : 117 ) Defining labels in arrays.xml -->
 <resources>
     <string-array name="pref_sort_entries">
         <item>@string/pref_sort_popular_label</item>

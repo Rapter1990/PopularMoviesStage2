@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-// TODO : 111 ) Creating Settings Activty for popular movies and top-rated movies
+// TODO : 113 ) Creating Settings Activty for popular movies and top-rated movies
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
@@ -13,7 +13,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
     }
 
-    // TODO : 115 ) Creating onOptionsItemSelected method
+    // TODO : 114 ) Creating onOptionsItemSelected method
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

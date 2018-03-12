@@ -19,12 +19,12 @@ import static android.content.ContentValues.TAG;
 
 public class API {
 
-    // TODO : 124 ) Creating LOG TAG -->
+    // TODO : 126 ) Creating LOG TAG -->
     private final static String LOG_TAG = API.class.getSimpleName();
 
     private static final String MOVIE_URL = "http://api.themoviedb.org/3/movie";
 
-    // TODO : 125 ) Defining related variables about URL -->
+    // TODO : 127 ) Defining related variables about URL -->
     public final static String API_BASE_URL = "https://api.themoviedb.org/3/";
     public final static String API_POPULAR_ENDPOINT = "movie/popular";
     public final static String API_TOP_RATED = "movie/top_rated";
@@ -116,7 +116,7 @@ public class API {
         }
     }
 
-    // TODO : 126 ) Defining url according to popular and top-rated -->
+    // TODO : 128 ) Defining url according to popular and top-rated -->
     public static String getRequestUrlWithPreference(String sortOrder, Context context) {
         String requestUrlString = API_BASE_URL;
         String prefPopular = context.getResources().getString(R.string.pref_sort_popular_value);
