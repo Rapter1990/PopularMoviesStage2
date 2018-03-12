@@ -1,9 +1,11 @@
 package apirequest;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
 import com.example.android.popularmoviesstage2.BuildConfig;
+import com.example.android.popularmoviesstage2.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,9 +19,15 @@ import static android.content.ContentValues.TAG;
 
 public class API {
 
+    // TODO : 124 ) Creating LOG TAG -->
+    private final static String LOG_TAG = API.class.getSimpleName();
 
     private static final String MOVIE_URL = "http://api.themoviedb.org/3/movie";
 
+    // TODO : 125 ) Defining related variables about URL -->
+    public final static String API_BASE_URL = "https://api.themoviedb.org/3/";
+    public final static String API_POPULAR_ENDPOINT = "movie/popular";
+    public final static String API_TOP_RATED = "movie/top_rated";
 
     private static final String API_KEY = "api_key";
 
@@ -106,5 +114,20 @@ public class API {
         } finally {
             urlConnection.disconnect();
         }
+    }
+
+    // TODO : 126 ) Defining url according to popular and top-rated -->
+    public static String getRequestUrlWithPreference(String sortOrder, Context context) {
+        String requestUrlString = API_BASE_URL;
+        String prefPopular = context.getResources().getString(R.string.pref_sort_popular_value);
+        String prefRatings = context.getResources().getString(R.string.pref_sort_ratings_value);
+        if (sortOrder.equals(prefPopular)) {
+            requestUrlString += API_POPULAR_ENDPOINT;
+        } else if (sortOrder.equals(prefRatings)) {
+            requestUrlString += API_TOP_RATED;
+        } else {
+            return null;
+        }
+        return requestUrlString;
     }
 }

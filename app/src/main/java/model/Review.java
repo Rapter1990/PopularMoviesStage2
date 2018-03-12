@@ -56,10 +56,11 @@ public class Review implements Serializable{
     }
 
     public String getUrl() {
-        return url;
+        return "https://www.themoviedb.org/review/" + getId();
     }
 
     public void setUrl(String url) {
         this.url = url;
     }
+
 }
