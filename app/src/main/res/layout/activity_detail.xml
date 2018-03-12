@@ -47,8 +47,9 @@
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 app:layout_collapseMode="pin"
                 app:title="Test"
-
                 />
+
+
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 

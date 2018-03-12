@@ -41,5 +41,10 @@
         <item name="android:layout_row">1</item>
     </style>
 
+    <style name="DetailTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
 </resources>
