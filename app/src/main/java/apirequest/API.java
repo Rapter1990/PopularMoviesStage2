@@ -25,9 +25,9 @@ public class API {
     private static final String MOVIE_URL = "http://api.themoviedb.org/3/movie";
 
     // TODO : 127 ) Defining related variables about URL -->
-    public final static String API_BASE_URL = "https://api.themoviedb.org/3/";
-    public final static String API_POPULAR_ENDPOINT = "movie/popular";
-    public final static String API_TOP_RATED = "movie/top_rated";
+    public final static String API_BASE_URL = "http://api.themoviedb.org/3/";
+    public final static String API_POPULAR = "popular";
+    public final static String API_TOP_RATED = "top_rated";
 
     private static final String API_KEY = "api_key";
 
@@ -117,14 +117,17 @@ public class API {
     }
 
     // TODO : 128 ) Defining url according to popular and top-rated -->
-    public static String getRequestUrlWithPreference(String sortOrder, Context context) {
-        String requestUrlString = API_BASE_URL;
+    public static String getRequestUrlWithPreference(String sortOrder, Context context) throws IOException {
+        URL movieRequestUrl;
+        String requestUrlString;
         String prefPopular = context.getResources().getString(R.string.pref_sort_popular_value);
         String prefRatings = context.getResources().getString(R.string.pref_sort_ratings_value);
         if (sortOrder.equals(prefPopular)) {
-            requestUrlString += API_POPULAR_ENDPOINT;
+            movieRequestUrl = buildUrl(API_POPULAR);
+            requestUrlString = getResponseFromHttpUrl(movieRequestUrl);
         } else if (sortOrder.equals(prefRatings)) {
-            requestUrlString += API_TOP_RATED;
+            movieRequestUrl = buildUrl(API_TOP_RATED);
+            requestUrlString = getResponseFromHttpUrl(movieRequestUrl);
         } else {
             return null;
         }

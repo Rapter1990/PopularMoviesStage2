@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
                         String movieUrl = API.getRequestUrlWithPreference(sortOrderPreference,
                                 getContext());
-
+                        System.out.println(movieUrl);
                         if (onlineStatus(getContext())) {
                             movieDataList = JSONClass
                                     .getMovieStringsFromJson(MainActivity.this, movieUrl);
@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             };
         }
 
+        // TODO : 154) Using onLoaderFinished to determine whether data is show or an error is thrown
         @Override
         public void onLoadFinished(Loader<ArrayList<Movie>> loader, ArrayList<Movie> data) {
             mainBinding.pbLoadingIndicator.setVisibility(View.INVISIBLE);

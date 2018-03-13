@@ -52,7 +52,7 @@
     <string name="pref_sort_popular_label">Popularity</string>
     <string name="pref_sort_popular_value" translatable="false">popular</string>
     <string name="pref_sort_ratings_label">Ratings</string>
-    <string name="pref_sort_ratings_value" translatable="false">ratings</string>
+    <string name="pref_sort_ratings_value" translatable="false">top_rated</string>
     <string name="pref_sort_favourites_label">Favourites</string>
     <string name="pref_sort_favourites_value" translatable="false">favourites</string>
 
