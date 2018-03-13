@@ -12,7 +12,6 @@ import android.database.DatabaseUtils;
 import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
@@ -23,13 +22,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridLayout;
-import android.widget.ProgressBar;
 
 import com.example.android.popularmoviesstage2.databinding.ActivityMainBinding;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import adapter.MovieAdapter;
 import apirequest.API;
