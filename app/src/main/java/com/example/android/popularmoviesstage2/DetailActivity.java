@@ -29,6 +29,10 @@ public class DetailActivity extends AppCompatActivity {
     private TrailerAdapter mTrailersAdapter;
     private ReviewAdapter mReviewsAdapter;
 
+    // TODO : 167) Defining Loader ids for trailer and reviews and lastly favorite
+    private final int TRAILER_REVIEWS_LOADER = 3;
+    private final int FAVOURITE_CURSOR_LOADER = 4;
+
     private ImageView expandedImage;
     private CollapsingToolbarLayout imageName;
     private ImageView moviePoster;
