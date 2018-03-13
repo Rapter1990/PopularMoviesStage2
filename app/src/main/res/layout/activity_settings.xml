@@ -2,8 +2,7 @@
 
 <!-- TODO : 118 ) Using fragment in activity_settings.xml -->
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/movie_settings_fragment"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.android.popularmoviesstage2.SettingsActivity"
+    android:id="@+id/main_settings_fragment"
+    android:name="fragments.SettingsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
