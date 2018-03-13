@@ -19,6 +19,8 @@ public class Trailer implements Parcelable {
     private int size;
     // TODO : 110 ) Defining trailer site
     private String site;
+    // TODO : 163) Defining url of trailer
+    private String url;
 
     // TODO : 5) Defining empty constuctor
     public Trailer() {
@@ -35,6 +37,7 @@ public class Trailer implements Parcelable {
         this.site = site;
     }
 
+
     protected Trailer(Parcel in) {
         id = in.readString();
         name = in.readString();
@@ -42,21 +45,7 @@ public class Trailer implements Parcelable {
         type = in.readString();
         size = in.readInt();
         site = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeString(key);
-        dest.writeString(type);
-        dest.writeInt(size);
-        dest.writeString(site);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        url = in.readString();
     }
 
     public static final Creator<Trailer> CREATOR = new Creator<Trailer>() {
@@ -123,6 +112,22 @@ public class Trailer implements Parcelable {
     // TODO : 108 ) Getting video from URL
     public String getURL(){
         return "https://www.youtube.com/watch?v=" + getKey();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(name);
+        parcel.writeString(key);
+        parcel.writeString(type);
+        parcel.writeInt(size);
+        parcel.writeString(site);
+        parcel.writeString(url);
     }
 }
 

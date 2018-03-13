@@ -13,6 +13,7 @@ public class Movie implements Parcelable {
     private String overview;
     private String rating;
     private String releaseDate;
+    private String url;
 
 
     public Movie(){
@@ -36,6 +37,7 @@ public class Movie implements Parcelable {
         overview = in.readString();
         rating = in.readString();
         releaseDate = in.readString();
+        url = in.readString();
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -102,6 +104,7 @@ public class Movie implements Parcelable {
         return "http://image.tmdb.org/t/p/w185/"+posterPath;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -115,5 +118,6 @@ public class Movie implements Parcelable {
         parcel.writeString(overview);
         parcel.writeString(rating);
         parcel.writeString(releaseDate);
+        parcel.writeString(url);
     }
 }

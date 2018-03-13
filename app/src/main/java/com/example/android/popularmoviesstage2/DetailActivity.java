@@ -8,13 +8,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.android.popularmoviesstage2.databinding.ActivityDetailBinding;
 import com.squareup.picasso.Picasso;
 
+import adapter.ReviewAdapter;
+import adapter.TrailerAdapter;
 import model.Movie;
 
 
 public class DetailActivity extends AppCompatActivity {
 
+    // TODO : 164) Defining LOG TAG
+    private final static String LOG_TAG = DetailActivity.class.getSimpleName();
+
+    // TODO : 165) Creating ActivityMainBinding to access each items in activity_detail.xml
+    private ActivityDetailBinding mBinding;
+
+    // TODO : 166) Defining both trailer and review adapter
+    private TrailerAdapter mTrailersAdapter;
+    private ReviewAdapter mReviewsAdapter;
 
     private ImageView expandedImage;
     private CollapsingToolbarLayout imageName;
@@ -25,10 +38,12 @@ public class DetailActivity extends AppCompatActivity {
     private Movie movieData;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
 
 
         expandedImage = findViewById(R.id.expandedImage);
@@ -60,8 +75,8 @@ public class DetailActivity extends AppCompatActivity {
                 movieData = (Movie) detailInformationActivity.getSerializableExtra("movie");
 
 
-                Picasso.with(DetailActivity.this).load(movieData.getUrl()).into(expandedImage);
-                Picasso.with(DetailActivity.this).load(movieData.getUrl()).into(moviePoster);
+                Picasso.with(getApplicationContext()).load(movieData.getUrl()).into(expandedImage);
+                Picasso.with(getApplicationContext()).load(movieData.getUrl()).into(moviePoster);
 
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
