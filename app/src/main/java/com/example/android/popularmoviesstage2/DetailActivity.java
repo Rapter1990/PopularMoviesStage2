@@ -60,8 +60,8 @@ public class DetailActivity extends AppCompatActivity {
                 movieData = (Movie) detailInformationActivity.getSerializableExtra("movie");
 
 
-                Picasso.with(getApplicationContext()).load(movieData.getUrl()).into(expandedImage);
-                Picasso.with(getApplicationContext()).load(movieData.getUrl()).into(moviePoster);
+                Picasso.with(DetailActivity.this).load(movieData.getUrl()).into(expandedImage);
+                Picasso.with(DetailActivity.this).load(movieData.getUrl()).into(moviePoster);
 
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
