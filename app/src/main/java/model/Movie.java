@@ -1,9 +1,10 @@
 package model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 
-public class Movie implements Serializable{
+public class Movie implements Parcelable {
 
 
     private String id;
@@ -18,7 +19,6 @@ public class Movie implements Serializable{
 
     }
 
-
     public Movie(String id, String originalTitle, String posterPath, String overview, String rating, String releaseDate) {
         this.id = id;
         this.originalTitle = originalTitle;
@@ -28,6 +28,27 @@ public class Movie implements Serializable{
         this.releaseDate = releaseDate;
     }
 
+
+    protected Movie(Parcel in) {
+        id = in.readString();
+        originalTitle = in.readString();
+        posterPath = in.readString();
+        overview = in.readString();
+        rating = in.readString();
+        releaseDate = in.readString();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -79,5 +100,20 @@ public class Movie implements Serializable{
 
     public String getUrl(){
         return "http://image.tmdb.org/t/p/w185/"+posterPath;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(originalTitle);
+        parcel.writeString(posterPath);
+        parcel.writeString(overview);
+        parcel.writeString(rating);
+        parcel.writeString(releaseDate);
     }
 }

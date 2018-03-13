@@ -1,10 +1,11 @@
 package model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 
-// TODO : 1) Creating Trailer class with its attributes and implementing Serializable
-public class Trailer implements Serializable {
+// TODO : 1) Creating Trailer class with its attributes and implementing Parcelable
+public class Trailer implements Parcelable {
 
     // TODO : 2) Defining trailer ID
     private String id;
@@ -33,6 +34,42 @@ public class Trailer implements Serializable {
         this.size = size;
         this.site = site;
     }
+
+    protected Trailer(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        key = in.readString();
+        type = in.readString();
+        size = in.readInt();
+        site = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(key);
+        dest.writeString(type);
+        dest.writeInt(size);
+        dest.writeString(site);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Trailer> CREATOR = new Creator<Trailer>() {
+        @Override
+        public Trailer createFromParcel(Parcel in) {
+            return new Trailer(in);
+        }
+
+        @Override
+        public Trailer[] newArray(int size) {
+            return new Trailer[size];
+        }
+    };
 
     // TODO : 7) Getter and Setters method
     public String getId() {

@@ -1,9 +1,11 @@
 package model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-// TODO : 8) Creating Review class with its attributes and implementing Serializable
-public class Review implements Serializable{
+
+// TODO : 8) Creating Review class with its attributes and implementing Parcelable
+public class Review implements Parcelable {
 
     // TODO : 111 ) Defining id of review
     private String id;
@@ -29,6 +31,25 @@ public class Review implements Serializable{
         this.id = id;
         this.url = url;
     }
+
+    protected Review(Parcel in) {
+        id = in.readString();
+        author = in.readString();
+        review = in.readString();
+        url = in.readString();
+    }
+
+    public static final Creator<Review> CREATOR = new Creator<Review>() {
+        @Override
+        public Review createFromParcel(Parcel in) {
+            return new Review(in);
+        }
+
+        @Override
+        public Review[] newArray(int size) {
+            return new Review[size];
+        }
+    };
 
     // TODO : 13) Getter and Setters method
     public String getAuthor() {
@@ -63,4 +84,16 @@ public class Review implements Serializable{
         this.url = url;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(author);
+        parcel.writeString(review);
+        parcel.writeString(url);
+    }
 }
