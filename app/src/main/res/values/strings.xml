@@ -17,6 +17,8 @@
 
     <string name="no_connection_error">An error occured, no internet connection</string>
 
+    <string name="no_connection_error_favorite">An error occured, no internet connection and no favorites</string>
+
 
     <string name="list">list</string>
 

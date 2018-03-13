@@ -3,9 +3,12 @@ package com.example.android.popularmoviesstage2;
 import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -14,6 +17,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,6 +33,7 @@ import java.util.List;
 
 import adapter.MovieAdapter;
 import apirequest.API;
+import data.MoviesContract;
 import json.JSONClass;
 import model.Movie;
 
@@ -133,6 +138,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     }
                 }
 
+
+
                 // TODO : 153) Delivering data
                 @Override
                 public void deliverResult(ArrayList<Movie> data) {
@@ -162,6 +169,89 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     };
 
 
+    // TODO : 155) Defining LoaderManager for loading favourites from the database.
+    LoaderManager.LoaderCallbacks<Cursor> databaseLoaderListener = new LoaderManager.LoaderCallbacks<Cursor>() {
+
+        @Override
+        public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+
+            // TODO : 156) Defining projections for getting variables from database
+            String[] projection = new String[]{
+                    MoviesContract.FavoriteEntry._ID,
+                    MoviesContract.FavoriteEntry.COLUMN_MOVIE_ID,
+                    MoviesContract.FavoriteEntry.COLUMN_TITLE,
+                    MoviesContract.FavoriteEntry.COLUMN_POSTER,
+                    MoviesContract.FavoriteEntry.COLUMN_OVERVIEW,
+                    MoviesContract.FavoriteEntry.COLUMN_RATING,
+                    MoviesContract.FavoriteEntry.COLUMN_RELEASE_DATE,
+            };
+
+            // TODO : 157) Returning variables from database
+            return new CursorLoader(MainActivity.this,
+                    MoviesContract.FavoriteEntry.CONTENT_URI,
+                    projection,
+                    null,
+                    null,
+                    null);
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+                ArrayList<Movie> favoriteMovies = new ArrayList<Movie>();
+
+                // TODO : 158) Showing cursor
+                Log.v(LOG_TAG, "Cursor is: " + DatabaseUtils.dumpCursorToString(cursor));
+
+                // TODO : 159) Moving cursor to first variable
+                cursor.moveToFirst();
+
+                // TODO : 160) Getting all variables form table in database and add them into movie object
+                while(!cursor.isAfterLast()){
+
+                    String movieId = cursor.getString(cursor.getColumnIndex(MoviesContract.FavoriteEntry.COLUMN_MOVIE_ID));
+                    String title = cursor.getString(cursor.getColumnIndex(MoviesContract.FavoriteEntry.COLUMN_TITLE));
+                    String posterLink = cursor.getString(cursor.getColumnIndex(MoviesContract.FavoriteEntry.COLUMN_POSTER));
+                    String plot = cursor.getString(cursor.getColumnIndex(MoviesContract.FavoriteEntry.COLUMN_OVERVIEW));
+                    String userRating = cursor.getString(cursor.getColumnIndex(MoviesContract.FavoriteEntry.COLUMN_RATING));
+                    String releaseDate = cursor.getString(cursor.getColumnIndex(MoviesContract.FavoriteEntry.COLUMN_RELEASE_DATE));
+
+                    Movie movie = new Movie(movieId,title,posterLink,plot,userRating,releaseDate);
+
+                    if (movie != null) {
+                        favoriteMovies.add(movie);
+                    }
+                    cursor.moveToNext();
+                }
+
+
+                // TODO : 161) Adding list into adapter
+                mMovieAdapter.setMovieData(favoriteMovies);
+
+                // TODO : 162) Checking whether favoriteMovies is null or not
+                if(favoriteMovies == null){
+                    showErrorMessage(getString(R.string.no_data_error));
+                }else{
+
+                    // TODO : 163) Showing connection error message if there are no network connection and favorite value
+                    String sortOrderPreference = sharedPreferences
+                            .getString(getString(R.string.pref_sort_key)
+                                    , getString(R.string.pref_sort_popular_value));
+                    if (!sortOrderPreference.equals(getString(R.string.pref_sort_favourites_value)) ||
+                            !onlineStatus(MainActivity.this)) {
+                        showErrorMessage(getString(R.string.no_connection_error_favorite));
+                    }
+                    showMovieDataView();
+                }
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+
+        }
+    };
+
+
+
     @Override
     public void onClick(Movie movieData) {
         Context context = this;
@@ -184,12 +274,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                             , getString(R.string.pref_sort_popular_value));
             if (sortOrderPreference.equals(getString(R.string.pref_sort_favourites_value)) ||
                     !onlineStatus(this)) {
-               // getLoaderManager()
-                //        .restartLoader(DATABASE_MOVIES_LOADER_ID, null, databaseLoaderListener);
+                getLoaderManager()
+                        .restartLoader(DATABASE_MOVIES_LOADER_ID, null, databaseLoaderListener);
             } else {
                 getLoaderManager()
                         .restartLoader(NETWORK_MOVIES_LOADER_ID, null, networkLoaderListener);
             }
+        }else{
+            getLoaderManager()
+                    .restartLoader(NETWORK_MOVIES_LOADER_ID, null, networkLoaderListener);
         }
     }
 
