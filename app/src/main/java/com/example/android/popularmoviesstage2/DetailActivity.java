@@ -33,14 +33,8 @@ public class DetailActivity extends AppCompatActivity {
     private final int TRAILER_REVIEWS_LOADER = 3;
     private final int FAVOURITE_CURSOR_LOADER = 4;
 
-    private ImageView expandedImage;
-    private CollapsingToolbarLayout imageName;
-    private ImageView moviePoster;
-    private TextView rating;
-    private TextView releaseDate;
-    private TextView plot;
+    // TODO : 168) Defining Movie object
     private Movie movieData;
-
 
 
     @Override
@@ -48,14 +42,6 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-
-
-        expandedImage = findViewById(R.id.expandedImage);
-        imageName = findViewById(R.id.collapsing);
-        moviePoster = findViewById(R.id.detail_movie_poster);
-        rating = findViewById(R.id.ratingtextViewInformation);
-        releaseDate = findViewById(R.id.releaseDateTextView);
-        plot = findViewById(R.id.moviePlotText);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -79,17 +65,17 @@ public class DetailActivity extends AppCompatActivity {
                 movieData = (Movie) detailInformationActivity.getSerializableExtra("movie");
 
 
-                Picasso.with(getApplicationContext()).load(movieData.getUrl()).into(expandedImage);
-                Picasso.with(getApplicationContext()).load(movieData.getUrl()).into(moviePoster);
+                Picasso.with(getApplicationContext()).load(movieData.getUrl()).into(mBinding.expandedImage);
+                Picasso.with(getApplicationContext()).load(movieData.getUrl()).into(mBinding.detailmovieposter);
 
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    imageName.setTitle(movieData.getOriginalTitle());
+                    mBinding.collapsing.setTitle(movieData.getOriginalTitle());
                 }
 
-                rating.setText(movieData.getRating());
-                releaseDate.setText(movieData.getReleaseDate());
-                plot.setText(movieData.getOverview());
+                mBinding.ratingtextViewInformation.setText(movieData.getRating());
+                mBinding.releaseDateTextView.setText(movieData.getReleaseDate());
+                mBinding.moviePlotText.setText(movieData.getOverview());
 
             }
 

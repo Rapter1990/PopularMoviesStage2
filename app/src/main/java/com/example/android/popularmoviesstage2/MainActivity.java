@@ -257,8 +257,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         Context context = this;
         Class destinationClass = DetailActivity.class;
         Intent movieDetailActivity = new Intent(context, destinationClass);
-        movieDetailActivity.putExtra("movie", movieData);
+
+        Bundle b = new Bundle();
+        b.putParcelable("MOVIE", movieData);
+        movieDetailActivity.putExtra("movie", b);
         startActivity(movieDetailActivity);
+
     }
 
 

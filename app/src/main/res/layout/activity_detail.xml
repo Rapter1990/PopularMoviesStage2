@@ -62,7 +62,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/detail_movie_poster"
+                    android:id="@+id/detailmovieposter"
                     android:layout_width="170dp"
                     android:layout_height="135dp"
                     android:layout_marginLeft="16dp"
