@@ -82,6 +82,9 @@ public final class JSONClass {
         // TODO : 17) Defining content of review attribute
         final String CONTENT = "content";
 
+        // TODO : 132) Defining if of review attribute
+        final String REVIEW_ID = "id";
+
         // TODO : 18) Checking whether string is null or not
         if(reviewJsonStr == null){
             return null;
@@ -106,6 +109,7 @@ public final class JSONClass {
                 JSONObject reviewInformation = reviewArray.getJSONObject(i);
 
                 Review review = new Review();
+                review.setId(reviewInformation.getString(REVIEW_ID));
                 review.setAuthor(reviewInformation.getString(AUTHOR));
                 review.setReview(reviewInformation.getString(CONTENT));
 
