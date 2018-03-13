@@ -10,7 +10,7 @@
         android:fitsSystemWindows="true">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
+            android:id="@+id/barlayout"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:fitsSystemWindows="true"
@@ -160,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:src="@drawable/fav_heart_unselected"
-            app:layout_anchor="@id/main.appbar"
+            app:layout_anchor="@id/barlayout"
             app:layout_anchorGravity="bottom|right|end" />
 
 

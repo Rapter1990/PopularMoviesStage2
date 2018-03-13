@@ -1,6 +1,7 @@
 package com.example.android.popularmoviesstage2;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -37,28 +38,12 @@ public class DetailActivity extends AppCompatActivity {
     private Movie movieData;
 
 
-    private ImageView expandedImage;
-    private CollapsingToolbarLayout imageName;
-    private ImageView moviePoster;
-    private TextView rating;
-    private TextView releaseDate;
-    private TextView plot;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
 
-
-        expandedImage = findViewById(R.id.expandedImage);
-        imageName = findViewById(R.id.collapsing);
-        moviePoster = findViewById(R.id.detailmovieposter);
-        rating = findViewById(R.id.ratingtextViewInformation);
-        releaseDate = findViewById(R.id.releaseDateTextView);
-        plot = findViewById(R.id.moviePlotText);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mBinding.toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         displayMovieInformation();
@@ -75,21 +60,20 @@ public class DetailActivity extends AppCompatActivity {
 
             if (detailInformationActivity.hasExtra("movie")) {
 
+                Bundle intentBundle = getIntent().getBundleExtra("movie");
+                movieData = intentBundle.getParcelable("MOVIE");
 
-                movieData = (Movie) detailInformationActivity.getSerializableExtra("movie");
-
-
-                Picasso.with(getApplicationContext()).load(movieData.getUrl()).into(expandedImage);
-                Picasso.with(getApplicationContext()).load(movieData.getUrl()).into(moviePoster);
+                Picasso.with(getApplicationContext()).load(movieData.getUrl()).into(mBinding.expandedImage);
+                Picasso.with(getApplicationContext()).load(movieData.getUrl()).into(mBinding.detailmovieposter);
 
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    imageName.setTitle(movieData.getOriginalTitle());
+                    mBinding.collapsing.setTitle(movieData.getOriginalTitle());
                 }
 
-                rating.setText(movieData.getRating());
-                releaseDate.setText(movieData.getReleaseDate());
-                plot.setText(movieData.getOverview());
+                mBinding.ratingtextViewInformation.setText(movieData.getRating());
+                mBinding.releaseDateTextView.setText(movieData.getReleaseDate());
+                mBinding.moviePlotText.setText(movieData.getOverview());
 
             }
 
