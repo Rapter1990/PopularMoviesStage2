@@ -17,11 +17,14 @@ import model.Review;
 // TODO : 99 ) Creating ReviewAdapter to determine review.xml in recyleview
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
 
+    // TODO : 180) Defining Context
+    private Context mContext;
+
     // TODO : 100 ) Defining Arraylist for review objects
     private ArrayList<Review> mReviewList;
 
     // TODO : 101 ) Defining a constructor for ReviewAdapter
-    public ReviewAdapter() {}
+    public ReviewAdapter(Context context) {this.mContext = context;}
 
     // TODO : 103 ) Defining onCreateViewHolder to determine review.xml
     @Override

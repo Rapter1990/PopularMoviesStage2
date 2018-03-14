@@ -58,4 +58,11 @@
     <string name="pref_sort_favourites_label">Favourites</string>
     <string name="pref_sort_favourites_value" translatable="false">favourites</string>
 
+
+    <string name="trailers_heading">Trailers</string>
+    <string name="reviews_heading">Reviews</string>
+
+    <string name="favourite_saved">Favourite Movie is saved!</string>
+    <string name="favourite_deleted">Favourite Movie is deleted!</string>
+
 </resources>

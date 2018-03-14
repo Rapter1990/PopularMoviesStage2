@@ -16,6 +16,9 @@ import model.Trailer;
 // TODO : 85 ) Creating TrailerAdapter to determine trailer.xml in recyleview
 public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerViewHolder> {
 
+    // TODO : 179) Defining Context
+    private Context mContext;
+
     // TODO : 86 ) Defining Arraylist for trailer objects
     private ArrayList<Trailer> mTrailerList;
 
@@ -23,8 +26,9 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
     private final TrailerAdapterOnClickHandler mClickHandler;
 
     // TODO : 88 ) Defining TrailerAdapter Constructor with TrailerAdapterOnClickHandler parameter
-    public TrailerAdapter(TrailerAdapterOnClickHandler mClickHandler) {
+    public TrailerAdapter(TrailerAdapterOnClickHandler mClickHandler,Context context) {
         this.mClickHandler = mClickHandler;
+        this.mContext = context;
     }
 
 
