@@ -50,7 +50,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
     // TODO : 169) Getting favourite data from the database
-    private LoaderManager.LoaderCallbacks<Cursor> favMoviesLoaderListener = new LoaderManager.LoaderCallbacks<Cursor>() {
+    private LoaderManager.LoaderCallbacks<Cursor> favoriteMoviesLoaderListener = new LoaderManager.LoaderCallbacks<Cursor>() {
 
         // TODO : 170) Creating onCreateLoader to show detailed information of movie in terms of its id.
         @Override
@@ -155,11 +155,11 @@ public class DetailActivity extends AppCompatActivity {
                 //getLoaderManager()
                 //        .initLoader(TRAILER_REVIEWS_LOADER, loaderArgs, movieExtrasLoaderListener);
                 getLoaderManager()
-                        .initLoader(FAVOURITE_CURSOR_LOADER, loaderArgs, favMoviesLoaderListener)
+                        .initLoader(FAVOURITE_CURSOR_LOADER, loaderArgs, favoriteMoviesLoaderListener)
                         .forceLoad();
             } else {
                 getLoaderManager()
-                        .initLoader(FAVOURITE_CURSOR_LOADER, loaderArgs, favMoviesLoaderListener)
+                        .initLoader(FAVOURITE_CURSOR_LOADER, loaderArgs, favoriteMoviesLoaderListener)
                         .forceLoad();
                 dontShowReviews();
                 dontShowTrailers();
