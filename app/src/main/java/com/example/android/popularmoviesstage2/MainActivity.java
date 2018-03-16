@@ -80,6 +80,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         mMovieAdapter = new MovieAdapter(this,getApplicationContext());
         mainBinding.recyclerview.setAdapter(mMovieAdapter);
 
+        // TODO : 200) Showing movies from network or from local storage according to the preference of Settings.
+        String sortOrderPref = sharedPreferences
+                .getString(getString(R.string.pref_sort_key)
+                        , getString(R.string.pref_sort_popular_value));
+        if (sortOrderPref.equals(getString(R.string.pref_sort_favourites_value)) ||
+                !onlineStatus(MainActivity.this)) {
+            getLoaderManager().initLoader(DATABASE_MOVIES_LOADER_ID, null, databaseLoaderListener);
+        } else {
+            getLoaderManager().initLoader(NETWORK_MOVIES_LOADER_ID, null, networkLoaderListener);
+        }
 
 
         // TODO : 138) Register MainActivity as a OnSharedPreferenceChangedListener in onCreate
@@ -213,10 +223,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
                     Movie movie = new Movie(movieId,title,posterLink,plot,userRating,releaseDate);
 
-                    if (movie != null) {
-                        favoriteMovies.add(movie);
-                    }
+                    favoriteMovies.add(movie);
+
                     cursor.moveToNext();
+                }
+
+
+                for(int i = 0 ; i<favoriteMovies.size();i++){
+                    System.out.println(i+".Movie Name : " + favoriteMovies.get(i).getOriginalTitle());
                 }
 
 
@@ -224,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 mMovieAdapter.setMovieData(favoriteMovies);
 
                 // TODO : 162) Checking whether favoriteMovies is null or not
-                if(favoriteMovies == null){
+                if(favoriteMovies.size() == 0){
                     showErrorMessage(getString(R.string.no_data_error));
                 }else{
 

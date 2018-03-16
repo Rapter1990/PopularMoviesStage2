@@ -28,6 +28,12 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".SettingsActivity"></activity>
+
+
+        <provider
+           android:authorities="com.example.android.popularmoviesstage2"
+           android:name="data.MovieContentProvider"
+           android:exported="false" />
     </application>
 
 </manifest>

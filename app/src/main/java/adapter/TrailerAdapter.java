@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.popularmoviesstage2.R;
@@ -68,17 +69,19 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.Trailers
     // TODO : 89 ) Creating TrailerViewHolder for defining trailer key and type and determining onClick action
     public class TrailersAdapterViewHolder  extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        // TODO : 90 ) Defining trailer name and type
+        // TODO : 90 ) Defining trailer name,type,playButton
         TextView trailerName;
         TextView trailerType;
+        ImageView playButton;
 
         // TODO : 91 ) Determining trailer name and type with their ids in trailer.xml in the constructor.
         public TrailersAdapterViewHolder (View itemView) {
             super(itemView);
             trailerName =(TextView)itemView.findViewById(R.id.tv_name_trailer);
             trailerType =(TextView)itemView.findViewById(R.id.tv_type_trailer);
+            playButton = (ImageView)itemView.findViewById(R.id.btn_play_trailer);
 
-            itemView.setOnClickListener(this);
+            playButton.setOnClickListener(this);
         }
 
         // TODO : 92 ) Adding click function when click each item of the list

@@ -60,41 +60,6 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
     // TODO : 168) Defining Movie object
     private Movie movieData;
 
-
-
-    // TODO : 169) Getting favourite data from the database
-    private LoaderManager.LoaderCallbacks<Cursor> favoriteMoviesLoaderListener = new LoaderManager.LoaderCallbacks<Cursor>() {
-
-        // TODO : 170) Creating onCreateLoader to show detailed information of movie in terms of its id.
-        @Override
-        public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-            String[] projection = new String[]{ MoviesContract.FavoriteEntry._ID };
-            String selection = MoviesContract.FavoriteEntry.COLUMN_MOVIE_ID + "=?";
-            String[] selectionArgs = new String[]{String.valueOf(bundle.getInt("id"))};
-            return new CursorLoader(DetailActivity.this,
-                    MoviesContract.FavoriteEntry.CONTENT_URI,
-                    projection,
-                    selection,
-                    selectionArgs,
-                    null);
-        }
-
-        // TODO : 171) If the favorite button is pressed, set true value
-        @Override
-        public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-            Log.v(LOG_TAG, "Cursor is: " + DatabaseUtils.dumpCursorToString(cursor));
-            if (cursor.getCount() > 0) {
-                mBinding.barlayout.setClickable(true);
-            }
-        }
-
-        @Override
-        public void onLoaderReset(Loader<Cursor> loader) {
-
-        }
-    };
-
-
     // TODO : 187) Getting trailers from the network
     LoaderManager.LoaderCallbacks<ArrayList<Trailer>> trailerLoaderListener = new LoaderManager.LoaderCallbacks<ArrayList<Trailer>>() {
 
@@ -122,11 +87,12 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
                     ArrayList<Trailer> trailerDataList = null;
 
                     String trailerId = String.valueOf(bundle.getString("id"));
+                    Log.v(LOG_TAG, "Trailer id is: " + trailerId);
 
                     try {
                         String trailerUrl = API.getResponseFromHttpUrl(API.buildURLforTrailer(trailerId));
 
-                        trailerDataList = JSONClass.getTrailerStringsFromJson(DetailActivity.this,trailerUrl);
+                        trailerDataList = JSONClass.getTrailerStringsFromJson(DetailActivity.this, trailerUrl);
 
                         return trailerDataList;
                     } catch (Exception e) {
@@ -150,9 +116,9 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         public void onLoadFinished(Loader<ArrayList<Trailer>> loader, ArrayList<Trailer> trailers) {
 
             mTrailersAdapter.setTrailerData(trailers);
-            if(trailers == null){
+            if (trailers == null) {
                 notShowTrailers();
-            }else{
+            } else {
                 showTrailers();
             }
         }
@@ -190,12 +156,13 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
 
                     ArrayList<Review> reviewDataList = null;
 
-                    String trailerId = String.valueOf(bundle.getString("id"));
+                    String reviewId = String.valueOf(bundle.getString("id"));
+                    Log.v(LOG_TAG, "Review id is: " + reviewId);
 
                     try {
-                        String trailerUrl = API.getResponseFromHttpUrl(API.buildURLforReview(trailerId));
+                        String reviewUrl = API.getResponseFromHttpUrl(API.buildURLforReview(reviewId));
 
-                        reviewDataList = JSONClass.getReviewStringsFromJson(DetailActivity.this,trailerUrl);
+                        reviewDataList = JSONClass.getReviewStringsFromJson(DetailActivity.this, reviewUrl);
 
                         return reviewDataList;
 
@@ -219,9 +186,9 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         public void onLoadFinished(Loader<ArrayList<Review>> loader, ArrayList<Review> reviews) {
 
             mReviewsAdapter.setReviewData(reviews);
-            if(reviews == null){
+            if (reviews == null) {
                 notShowReviews();
-            }else{
+            } else {
                 showReviews();
             }
         }
@@ -234,6 +201,38 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
     };
 
 
+    // TODO : 169) Getting favourite data from the database
+    private LoaderManager.LoaderCallbacks<Cursor> favoriteMoviesLoaderListener = new LoaderManager.LoaderCallbacks<Cursor>() {
+
+        // TODO : 170) Creating onCreateLoader to show detailed information of movie in terms of its id.
+        @Override
+        public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+            String[] projection = new String[]{MoviesContract.FavoriteEntry._ID};
+            String selection = MoviesContract.FavoriteEntry.COLUMN_MOVIE_ID + "=?";
+            String[] selectionArgs = new String[]{String.valueOf(bundle.getString("id"))};
+            Log.v(LOG_TAG, "Favorite selectionArgs id is: " + selectionArgs);
+            return new CursorLoader(DetailActivity.this,
+                    MoviesContract.FavoriteEntry.CONTENT_URI,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null);
+        }
+
+        // TODO : 171) If the favorite button is pressed, set true value
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+                Log.v(LOG_TAG, "Cursor is: " + DatabaseUtils.dumpCursorToString(cursor));
+                if (cursor.getCount() > 0) {
+                    mBinding.favoriteButton.setClickable(true);
+                }
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,36 +243,47 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+        Bundle intentBundle = getIntent().getBundleExtra("movie");
+        if (intentBundle != null) {
+            movieData = intentBundle.getParcelable("MOVIE");
+            Log.v(LOG_TAG, "Movie Id: " + movieData.getId());
+            Log.v(LOG_TAG, "Movie Title: " + movieData.getOriginalTitle());
+            Log.v(LOG_TAG, "Movie Poster: " + movieData.getUrl());
+            Log.v(LOG_TAG, "Movie Plot: " + movieData.getOverview());
+            Log.v(LOG_TAG, "Movie User Rating: " + movieData.getRating());
+            Log.v(LOG_TAG, "Movie Release Date: " + movieData.getReleaseDate());
+        }
+
+
         // TODO : 172) Set Favourite by pressing FloatingActionButton to save favourite movie info.
-        mBinding.barlayout.setOnClickListener(new View.OnClickListener() {
+        mBinding.favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 // TODO : 173) Checking whether FloatingActionButton is pressed or not
-                if (mBinding.barlayout.isClickable()) {
+                if (mBinding.favoriteButton.isClickable()) {
 
                     // TODO : 174) Saving the movie's poster as its id to local storage.(
                     String posterUrl = movieData.getUrl();
                     Picasso.with(DetailActivity.this)
                             .load(posterUrl)
-                            .into(ImageUtilities.saveImage(getApplicationContext(),movieData.getId()));
+                            .into(ImageUtilities.saveImage(getApplicationContext(), movieData.getId()));
 
                     // TODO : 175) Saving all values to database
                     ContentValues values = new ContentValues();
-                    values.put(MoviesContract.FavoriteEntry.COLUMN_MOVIE_ID , movieData.getId());
-                    values.put(MoviesContract.FavoriteEntry.COLUMN_TITLE , movieData.getOriginalTitle());
+                    values.put(MoviesContract.FavoriteEntry.COLUMN_MOVIE_ID, movieData.getId());
+                    values.put(MoviesContract.FavoriteEntry.COLUMN_TITLE, movieData.getOriginalTitle());
                     values.put(MoviesContract.FavoriteEntry.COLUMN_OVERVIEW, movieData.getOverview());
                     values.put(MoviesContract.FavoriteEntry.COLUMN_RATING, movieData.getRating());
                     values.put(MoviesContract.FavoriteEntry.COLUMN_RELEASE_DATE, movieData.getReleaseDate());
-
+                    values.put(MoviesContract.FavoriteEntry.COLUMN_POSTER,"imageDir/"+movieData.getId());
                     getContentResolver().insert(MoviesContract.FavoriteEntry.CONTENT_URI, values);
                     Toast.makeText(DetailActivity.this, getString(R.string.favourite_saved), Toast.LENGTH_SHORT).show();
 
-                }
-                else {
+                } else {
 
                     // TODO : 176) Deleting the image from local storage.(MISSING POSTER ISSUE)
-                    ImageUtilities.deleteImage(getApplicationContext(),movieData);
+                    ImageUtilities.deleteImage(getApplicationContext(), movieData);
 
                     // TODO : 177) Deleting the movie from the database.
                     String where = MoviesContract.FavoriteEntry.COLUMN_MOVIE_ID + "=?";
@@ -290,7 +300,7 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mBinding.trailerReview.recyclerviewTrailers.setLayoutManager(layoutManager);
-        mTrailersAdapter = new TrailerAdapter(this,this);
+        mTrailersAdapter = new TrailerAdapter(this, this);
         mBinding.trailerReview.recyclerviewTrailers.setAdapter(mTrailersAdapter);
 
         // TODO : 178) Setting Reviews data in Reviews RecyclerView
@@ -315,6 +325,7 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
                 getLoaderManager()
                         .initLoader(FAVOURITE_CURSOR_LOADER, loaderArgs, favoriteMoviesLoaderListener)
                         .forceLoad();
+                displayMovieInformation();
             } else {
                 getLoaderManager()
                         .initLoader(FAVOURITE_CURSOR_LOADER, loaderArgs, favoriteMoviesLoaderListener)
@@ -328,30 +339,17 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
     }
 
 
-
     private void displayMovieInformation() {
 
-        Intent detailInformationActivity = getIntent();
+        Picasso.with(DetailActivity.this).load(movieData.getUrl()).into(mBinding.expandedImage);
+        Picasso.with(DetailActivity.this).load(movieData.getUrl()).into(mBinding.detailmovieposter);
 
-        if (detailInformationActivity != null) {
-
-            if (detailInformationActivity.hasExtra("movie")) {
-
-                Bundle intentBundle = getIntent().getBundleExtra("movie");
-                movieData = intentBundle.getParcelable("MOVIE");
-
-                Picasso.with(DetailActivity.this).load(movieData.getUrl()).into(mBinding.expandedImage);
-                Picasso.with(DetailActivity.this).load(movieData.getUrl()).into(mBinding.detailmovieposter);
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    mBinding.collapsing.setTitle(movieData.getOriginalTitle());
-                }
-                mBinding.ratingtextViewInformation.setText(movieData.getRating());
-                mBinding.releaseDateTextView.setText(movieData.getReleaseDate());
-                mBinding.moviePlotText.setText(movieData.getOverview());
-
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mBinding.collapsing.setTitle(movieData.getOriginalTitle());
         }
+        mBinding.ratingtextViewInformation.setText(movieData.getRating());
+        mBinding.releaseDateTextView.setText(movieData.getReleaseDate());
+        mBinding.moviePlotText.setText(movieData.getOverview());
 
     }
 

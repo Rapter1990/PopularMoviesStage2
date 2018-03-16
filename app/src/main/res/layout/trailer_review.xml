@@ -9,7 +9,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_trailers_heading"
+            android:id="@+id/tvTrailersHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -20,14 +20,14 @@
             tools:text="@string/trailers_heading" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_trailers"
+            android:id="@+id/recyclerviewTrailers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="8dp" />
 
         <TextView
-            android:id="@+id/tv_reviews_heading"
+            android:id="@+id/tvReviewsHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -38,7 +38,7 @@
             tools:text="@string/reviews_heading" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_reviews"
+            android:id="@+id/recyclerviewReviews"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"

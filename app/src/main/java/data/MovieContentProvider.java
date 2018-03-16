@@ -161,7 +161,7 @@ public class MovieContentProvider extends ContentProvider {
                 //update a single task by getting the id
 //                String id = uri.getPathSegments().get(1);
                 //using selections
-                tasksUpdated = moviesDbHelper.getWritableDatabase().update(TABLE_NAME, contentValues,
+                tasksUpdated = db.update(TABLE_NAME, contentValues,
                         "_id=?", new String[]{selection});
                 break;
             default:

@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MoviesDpHelper extends SQLiteOpenHelper {
 
     // TODO : 48 ) Defining database name and its version
-    private static final String DATABASE_NAME       = "movielist.db";
+    private static final String DATABASE_NAME       = "movieslist.db";
     private static final int    DATABASE_VERSION    = 1;
 
     // TODO : 49 ) Defining query comments and constraints for SQL Operations
-    private static final String CREATE_TABLE = "CREATE TABLE";
+    private static final String CREATE_TABLE = "CREATE TABLE ";
     private static final String INTEGER_PRIMARY_KEY_AUTOINCREMENT = " INTEGER PRIMARY KEY AUTOINCREMENT,";
     private static final String TEXT_NOT_NULL = " TEXT NOT NULL,";
     private static final String INTEGER_NOT_NULL = " INTEGER NOT NULL,";
