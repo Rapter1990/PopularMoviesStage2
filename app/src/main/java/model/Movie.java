@@ -15,6 +15,9 @@ public class Movie implements Parcelable {
     private String releaseDate;
     private String url;
 
+    // TODO 201: Defining boolean variable
+    private boolean isFavorite;
+
 
     public Movie(){
 
@@ -119,5 +122,13 @@ public class Movie implements Parcelable {
         parcel.writeString(rating);
         parcel.writeString(releaseDate);
         parcel.writeString(url);
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
     }
 }

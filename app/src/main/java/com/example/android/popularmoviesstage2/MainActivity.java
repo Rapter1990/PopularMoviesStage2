@@ -12,6 +12,7 @@ import android.database.DatabaseUtils;
 import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
@@ -24,6 +25,7 @@ import android.view.View;
 import android.widget.GridLayout;
 
 import com.example.android.popularmoviesstage2.databinding.ActivityMainBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -251,6 +253,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                         showErrorMessage(getString(R.string.no_connection_error_favorite));
                     }
                     showMovieDataView();
+
+
                 }
         }
 
@@ -363,4 +367,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
         return false;
     }
+
+
 }
