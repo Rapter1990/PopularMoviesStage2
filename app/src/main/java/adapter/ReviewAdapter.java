@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import model.Review;
 
 // TODO : 99 ) Creating ReviewAdapter to determine review.xml in recyleview
-public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
+public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewsAdapterViewHolder> {
 
     // TODO : 180) Defining Context
     private Context mContext;
@@ -28,21 +28,20 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
     // TODO : 103 ) Defining onCreateViewHolder to determine review.xml
     @Override
-    public ReviewAdapter.ReviewViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ReviewsAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
         int layoutIdForListItem = R.layout.review;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
         View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
-        ReviewViewHolder viewHolder = new ReviewViewHolder(view);
 
-        return viewHolder;
+        return new ReviewsAdapterViewHolder(view);
     }
 
     // TODO : 97 ) Defining onBindViewHolder to determine textviews in trailer.xml
     @Override
-    public void onBindViewHolder(ReviewAdapter.ReviewViewHolder holder, int position) {
+    public void onBindViewHolder(ReviewsAdapterViewHolder  holder, int position) {
         String mAuthor = mReviewList.get(position).getAuthor();
         String mContent = mReviewList.get(position).getReview();
 
@@ -60,14 +59,14 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     }
 
     // TODO : 103 ) Creating ReviewViewHolder for defining author and content and determining onClick action
-    public class ReviewViewHolder extends RecyclerView.ViewHolder {
+    public class ReviewsAdapterViewHolder  extends RecyclerView.ViewHolder {
 
         // TODO : 104 ) Defining author and content
         TextView author;
         TextView content;
 
         // TODO : 105 ) Determining author and content with their ids in review.xml in the constructor.
-        public ReviewViewHolder(View itemView) {
+        public ReviewsAdapterViewHolder (View itemView) {
             super(itemView);
 
             author =(TextView)itemView.findViewById(R.id.author_review);

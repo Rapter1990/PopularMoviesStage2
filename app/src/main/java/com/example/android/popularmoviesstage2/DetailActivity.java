@@ -1,6 +1,7 @@
 package com.example.android.popularmoviesstage2;
 
 import android.app.LoaderManager;
+import android.content.AsyncTaskLoader;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
@@ -11,6 +12,7 @@ import android.database.DatabaseUtils;
 import android.databinding.DataBindingUtil;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,13 +24,23 @@ import android.widget.Toast;
 import com.example.android.popularmoviesstage2.databinding.ActivityDetailBinding;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
 import adapter.ReviewAdapter;
 import adapter.TrailerAdapter;
+import apirequest.API;
 import data.MoviesContract;
+import image.ImageUtilities;
+import json.JSONClass;
 import model.Movie;
+import model.Review;
+import model.Trailer;
 
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements TrailerAdapter.TrailerAdapterOnClickHandler {
 
     // TODO : 164) Defining LOG TAG
     private final static String LOG_TAG = DetailActivity.class.getSimpleName();
@@ -41,8 +53,9 @@ public class DetailActivity extends AppCompatActivity {
     private ReviewAdapter mReviewsAdapter;
 
     // TODO : 167) Defining Loader ids for trailer and reviews and lastly favorite
-    private final int TRAILER_REVIEWS_LOADER = 3;
-    private final int FAVOURITE_CURSOR_LOADER = 4;
+    private final int FAVOURITE_CURSOR_LOADER = 3;
+    private final int TRAILER_LOADER = 4;
+    private final int REVIEWS_LOADER = 5;
 
     // TODO : 168) Defining Movie object
     private Movie movieData;
@@ -82,7 +95,144 @@ public class DetailActivity extends AppCompatActivity {
     };
 
 
-    // TODO : 187) Getting trailers and reviews from the network
+    // TODO : 187) Getting trailers from the network
+    LoaderManager.LoaderCallbacks<ArrayList<Trailer>> trailerLoaderListener = new LoaderManager.LoaderCallbacks<ArrayList<Trailer>>() {
+
+        // TODO : 188) Getting trailers from the network
+        @Override
+        public Loader<ArrayList<Trailer>> onCreateLoader(int i, final Bundle bundle) {
+            // TODO : 189) returning the list of trailer via AsyncTaskLoader
+            return new AsyncTaskLoader<ArrayList<Trailer>>(DetailActivity.this) {
+
+                ArrayList<Trailer> trailersList;
+
+                @Override
+                protected void onStartLoading() {
+                    if (trailersList != null) {
+                        deliverResult(trailersList);
+                    } else {
+                        forceLoad();
+                    }
+                }
+
+                // TODO : 190) Loading data
+                @Override
+                public ArrayList<Trailer> loadInBackground() {
+
+                    ArrayList<Trailer> trailerDataList = null;
+
+                    String trailerId = String.valueOf(bundle.getString("id"));
+
+                    try {
+                        String trailerUrl = API.getResponseFromHttpUrl(API.buildURLforTrailer(trailerId));
+
+                        trailerDataList = JSONClass.getTrailerStringsFromJson(DetailActivity.this,trailerUrl);
+
+                        return trailerDataList;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+
+                }
+
+                // TODO : 191) Delivering data
+                @Override
+                public void deliverResult(ArrayList<Trailer> data) {
+                    trailersList = data;
+                    super.deliverResult(data);
+                }
+            };
+        }
+
+        // TODO : 192) Using onLoaderFinished to determine whether data is shown or an error is thrown
+        @Override
+        public void onLoadFinished(Loader<ArrayList<Trailer>> loader, ArrayList<Trailer> trailers) {
+
+            mTrailersAdapter.setTrailerData(trailers);
+            if(trailers == null){
+                notShowTrailers();
+            }else{
+                showTrailers();
+            }
+        }
+
+        @Override
+        public void onLoaderReset(Loader<ArrayList<Trailer>> loader) {
+
+        }
+    };
+
+
+    // TODO : 193) Getting reviews from the network
+    LoaderManager.LoaderCallbacks<ArrayList<Review>> reviewLoaderListener = new LoaderManager.LoaderCallbacks<ArrayList<Review>>() {
+
+        // TODO : 194) returning the list of trailer via AsyncTaskLoader
+        @Override
+        public Loader<ArrayList<Review>> onCreateLoader(int i, final Bundle bundle) {
+            return new AsyncTaskLoader<ArrayList<Review>>(DetailActivity.this) {
+
+
+                ArrayList<Review> reviewsList;
+
+                @Override
+                protected void onStartLoading() {
+                    if (reviewsList != null) {
+                        deliverResult(reviewsList);
+                    } else {
+                        forceLoad();
+                    }
+                }
+
+                // TODO : 195) Loading data
+                @Override
+                public ArrayList<Review> loadInBackground() {
+
+                    ArrayList<Review> reviewDataList = null;
+
+                    String trailerId = String.valueOf(bundle.getString("id"));
+
+                    try {
+                        String trailerUrl = API.getResponseFromHttpUrl(API.buildURLforReview(trailerId));
+
+                        reviewDataList = JSONClass.getReviewStringsFromJson(DetailActivity.this,trailerUrl);
+
+                        return reviewDataList;
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+
+                // TODO : 196) Delivering data
+                @Override
+                public void deliverResult(ArrayList<Review> data) {
+                    reviewsList = data;
+                    super.deliverResult(data);
+                }
+            };
+        }
+
+        // TODO : 197) Using onLoaderFinished to determine whether data is shown or an error is thrown
+        @Override
+        public void onLoadFinished(Loader<ArrayList<Review>> loader, ArrayList<Review> reviews) {
+
+            mReviewsAdapter.setReviewData(reviews);
+            if(reviews == null){
+                notShowReviews();
+            }else{
+                showReviews();
+            }
+        }
+
+        @Override
+        public void onLoaderReset(Loader<ArrayList<Review>> loader) {
+
+        }
+
+    };
+
 
 
     @Override
@@ -102,8 +252,11 @@ public class DetailActivity extends AppCompatActivity {
                 // TODO : 173) Checking whether FloatingActionButton is pressed or not
                 if (mBinding.barlayout.isClickable()) {
 
-                    // TODO : 174) Saving the movie's poster to local storage.(MISSING POSTER ISSUE)
-
+                    // TODO : 174) Saving the movie's poster as its id to local storage.(
+                    String posterUrl = movieData.getUrl();
+                    Picasso.with(DetailActivity.this)
+                            .load(posterUrl)
+                            .into(ImageUtilities.saveImage(getApplicationContext(),movieData.getId()));
 
                     // TODO : 175) Saving all values to database
                     ContentValues values = new ContentValues();
@@ -120,6 +273,7 @@ public class DetailActivity extends AppCompatActivity {
                 else {
 
                     // TODO : 176) Deleting the image from local storage.(MISSING POSTER ISSUE)
+                    ImageUtilities.deleteImage(getApplicationContext(),movieData);
 
                     // TODO : 177) Deleting the movie from the database.
                     String where = MoviesContract.FavoriteEntry.COLUMN_MOVIE_ID + "=?";
@@ -136,7 +290,7 @@ public class DetailActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mBinding.trailerReview.recyclerviewTrailers.setLayoutManager(layoutManager);
-        mTrailersAdapter = new TrailerAdapter((TrailerAdapter.TrailerAdapterOnClickHandler) this,this);
+        mTrailersAdapter = new TrailerAdapter(this,this);
         mBinding.trailerReview.recyclerviewTrailers.setAdapter(mTrailersAdapter);
 
         // TODO : 178) Setting Reviews data in Reviews RecyclerView
@@ -152,8 +306,12 @@ public class DetailActivity extends AppCompatActivity {
             Bundle loaderArgs = new Bundle();
             loaderArgs.putString("id", movieData.getId());
             if (onlineStatus(this)) {
-                //getLoaderManager()
-                //        .initLoader(TRAILER_REVIEWS_LOADER, loaderArgs, movieExtrasLoaderListener);
+                getLoaderManager()
+                        .initLoader(TRAILER_LOADER, loaderArgs, trailerLoaderListener);
+
+                getLoaderManager()
+                        .initLoader(REVIEWS_LOADER, loaderArgs, reviewLoaderListener);
+
                 getLoaderManager()
                         .initLoader(FAVOURITE_CURSOR_LOADER, loaderArgs, favoriteMoviesLoaderListener)
                         .forceLoad();
@@ -161,8 +319,8 @@ public class DetailActivity extends AppCompatActivity {
                 getLoaderManager()
                         .initLoader(FAVOURITE_CURSOR_LOADER, loaderArgs, favoriteMoviesLoaderListener)
                         .forceLoad();
-                dontShowReviews();
-                dontShowTrailers();
+                notShowReviews();
+                notShowTrailers();
                 displayMovieInformation();
             }
         }
@@ -210,14 +368,14 @@ public class DetailActivity extends AppCompatActivity {
 
 
     // TODO : 183) Not showing trailers because of not having a connection to Internet
-    private void dontShowTrailers() {
+    private void notShowTrailers() {
         mBinding.trailerReview.tvTrailersHeading.setVisibility(View.INVISIBLE);
         mBinding.trailerReview.recyclerviewTrailers.setVisibility(View.INVISIBLE);
 
     }
 
     // TODO : 184) Not showing reviews because of not having a connection to Internet
-    private void dontShowReviews() {
+    private void notShowReviews() {
         mBinding.trailerReview.tvReviewsHeading.setVisibility(View.INVISIBLE);
         mBinding.trailerReview.recyclerviewReviews.setVisibility(View.INVISIBLE);
 
@@ -233,5 +391,14 @@ public class DetailActivity extends AppCompatActivity {
     private void showReviews() {
         mBinding.trailerReview.tvReviewsHeading.setVisibility(View.VISIBLE);
         mBinding.trailerReview.recyclerviewReviews.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    public void onClick(Trailer trailer) {
+
+        Log.v(LOG_TAG, Uri.parse(trailer.getURL()).toString());
+        startActivity(new Intent(Intent.ACTION_VIEW,
+                Uri.parse(trailer.getURL())));
     }
 }

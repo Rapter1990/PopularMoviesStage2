@@ -14,7 +14,7 @@ import model.Trailer;
 
 
 // TODO : 85 ) Creating TrailerAdapter to determine trailer.xml in recyleview
-public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerViewHolder> {
+public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailersAdapterViewHolder> {
 
     // TODO : 179) Defining Context
     private Context mContext;
@@ -26,29 +26,29 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
     private final TrailerAdapterOnClickHandler mClickHandler;
 
     // TODO : 88 ) Defining TrailerAdapter Constructor with TrailerAdapterOnClickHandler parameter
-    public TrailerAdapter(TrailerAdapterOnClickHandler mClickHandler,Context context) {
-        this.mClickHandler = mClickHandler;
+    public TrailerAdapter(TrailerAdapterOnClickHandler mClickHandler, Context context) {
         this.mContext = context;
+        this.mClickHandler = mClickHandler;
     }
 
 
     // TODO : 96 ) Defining onCreateViewHolder to determine trailer.xml
     @Override
-    public TrailerViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public TrailersAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
         int layoutIdForListItem = R.layout.trailer;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
         View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
-        TrailerViewHolder viewHolder = new TrailerViewHolder(view);
+        TrailersAdapterViewHolder viewHolder = new TrailersAdapterViewHolder(view);
 
-        return viewHolder;
+        return new TrailersAdapterViewHolder(view);
     }
 
     // TODO : 97 ) Defining onBindViewHolder to determine textviews in trailer.xml
     @Override
-    public void onBindViewHolder(TrailerViewHolder holder, int position) {
+    public void onBindViewHolder(TrailersAdapterViewHolder  holder, int position) {
         String nameTrailer = mTrailerList.get(position).getName();
         String typeTrailer = mTrailerList.get(position).getType();
 
@@ -66,14 +66,14 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
     }
 
     // TODO : 89 ) Creating TrailerViewHolder for defining trailer key and type and determining onClick action
-    public class TrailerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class TrailersAdapterViewHolder  extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // TODO : 90 ) Defining trailer name and type
         TextView trailerName;
         TextView trailerType;
 
         // TODO : 91 ) Determining trailer name and type with their ids in trailer.xml in the constructor.
-        public TrailerViewHolder(View itemView) {
+        public TrailersAdapterViewHolder (View itemView) {
             super(itemView);
             trailerName =(TextView)itemView.findViewById(R.id.tv_name_trailer);
             trailerType =(TextView)itemView.findViewById(R.id.tv_type_trailer);
