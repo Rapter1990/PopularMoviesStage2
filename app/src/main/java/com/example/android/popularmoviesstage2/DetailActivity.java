@@ -224,7 +224,8 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
                 Log.v(LOG_TAG, "Cursor is: " + DatabaseUtils.dumpCursorToString(cursor));
                 if (cursor.getCount() > 0) {
-                    mBinding.favoriteButton.setClickable(true);
+                    mBinding.favoriteButton.setEnabled(true);
+
                 }
         }
 
@@ -261,7 +262,7 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
             public void onClick(View view) {
 
                 // TODO : 173) Checking whether FloatingActionButton is pressed or not
-                if (mBinding.favoriteButton.isClickable()) {
+                if (mBinding.favoriteButton.isEnabled()) {
 
                     // TODO : 174) Saving the movie's poster as its id to local storage.(
                     String posterUrl = movieData.getUrl();
