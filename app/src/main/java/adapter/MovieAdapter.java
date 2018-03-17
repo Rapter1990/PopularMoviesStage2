@@ -1,6 +1,7 @@
 package adapter;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import com.example.android.popularmoviesstage2.R;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import model.Movie;
@@ -44,7 +46,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     @Override
     public void onBindViewHolder(MovieAdapterViewHolder movieAdapterViewHolder, int position) {
-        Picasso.with(context).load(mMovieData.get(position).getUrl()).into(movieAdapterViewHolder.getThumb());
+
+        // TODO 201: Getting image from network or local storage
+        String moviePosterLink = mMovieData.get(position).getUrl();
+
+        if(moviePosterLink.contains("imageDir")){
+            ContextWrapper cw = new ContextWrapper(context);
+            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File myImageFile =
+                    new File(directory, String.valueOf(mMovieData.get(position).getId()));
+            Picasso.with(context).load(myImageFile).into(movieAdapterViewHolder.thumb);
+        }else{
+            Picasso.with(context).load(mMovieData.get(position).getUrl()).into(movieAdapterViewHolder.thumb);
+        }
+
+
 
     }
 

@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 
-
-
         // TODO : 140) Defining GridLayoutManager to show design of main activity
         int orientation = GridLayout.VERTICAL;
         int span = getResources().getInteger(R.integer.gridlayout_span);
@@ -254,7 +252,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     }
                     showMovieDataView();
 
-
                 }
         }
 
@@ -298,10 +295,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 getLoaderManager()
                         .restartLoader(NETWORK_MOVIES_LOADER_ID, null, networkLoaderListener);
             }
-        }else{
+        }/*else{
             getLoaderManager()
                     .restartLoader(NETWORK_MOVIES_LOADER_ID, null, networkLoaderListener);
-        }
+        }*/
     }
 
     // TODO : 146)  Override onDestroy and unregister MainActivity as a SharedPreferenceChangedListener

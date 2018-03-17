@@ -4,6 +4,7 @@ import android.app.LoaderManager;
 import android.content.AsyncTaskLoader;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -26,6 +27,7 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -339,11 +341,22 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
 
     }
 
-
+    // TODO 202: Showing image from network or local storage
     private void displayMovieInformation() {
 
-        Picasso.with(DetailActivity.this).load(movieData.getUrl()).into(mBinding.expandedImage);
-        Picasso.with(DetailActivity.this).load(movieData.getUrl()).into(mBinding.detailmovieposter);
+        String moviePosterLink = movieData.getUrl();
+
+        if(moviePosterLink.contains("imageDir")){
+            ContextWrapper cw = new ContextWrapper(this);
+            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File myImageFile =
+                    new File(directory, String.valueOf(movieData.getId()));
+            Picasso.with(DetailActivity.this).load(myImageFile).into(mBinding.expandedImage);
+            Picasso.with(DetailActivity.this).load(myImageFile).into(mBinding.detailmovieposter);
+        }else{
+            Picasso.with(DetailActivity.this).load(moviePosterLink).into(mBinding.expandedImage);
+            Picasso.with(DetailActivity.this).load(moviePosterLink).into(mBinding.detailmovieposter);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mBinding.collapsing.setTitle(movieData.getOriginalTitle());
