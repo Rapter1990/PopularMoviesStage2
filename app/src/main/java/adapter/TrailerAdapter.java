@@ -42,7 +42,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.Trailers
         boolean shouldAttachToParentImmediately = false;
 
         View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
-        TrailersAdapterViewHolder viewHolder = new TrailersAdapterViewHolder(view);
+
 
         return new TrailersAdapterViewHolder(view);
     }

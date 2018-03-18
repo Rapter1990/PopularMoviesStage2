@@ -306,13 +306,15 @@ public class DetailActivity extends AppCompatActivity implements TrailerAdapter.
         mTrailersAdapter = new TrailerAdapter(this, this);
         mBinding.trailerReview.recyclerviewTrailers.setAdapter(mTrailersAdapter);
 
+
         // TODO : 178) Setting Reviews data in Reviews RecyclerView
         mBinding.trailerReview.recyclerviewReviews.setHasFixedSize(true);
         LinearLayoutManager layoutManagerReviews = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        layoutManagerReviews.setOrientation(LinearLayoutManager.VERTICAL);
         mBinding.trailerReview.recyclerviewReviews.setLayoutManager(layoutManagerReviews);
         mReviewsAdapter = new ReviewAdapter(this);
         mBinding.trailerReview.recyclerviewReviews.setAdapter(mReviewsAdapter);
+
 
         // TODO : 181) Loading favorite ad detailed information of movies
         if (movieData != null) {
