@@ -59,111 +59,113 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-            <LinearLayout
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/detailmovieposter"
-                    android:layout_width="170dp"
-                    android:layout_height="135dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/ic_launcher" />
-
-                <TextView
-                    android:id="@+id/ratingtextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Rating"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/detailmovieposter"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/ratingtextViewInformation"
-                    android:layout_width="23dp"
-                    android:layout_height="19dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/ratingtextView"
-                    app:layout_constraintTop_toBottomOf="@+id/ratingtextView" />
-
-                <TextView
-                    android:id="@+id/releaseDateTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="21dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Release Date"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/detailmovieposter"
-                    app:layout_constraintTop_toBottomOf="@+id/ratingtextViewInformation" />
-
-                <TextView
-                    android:id="@+id/releaseDateTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="11-11-2011"
-                    app:layout_constraintBottom_toBottomOf="@+id/detailmovieposter"
-                    app:layout_constraintStart_toStartOf="@+id/releaseDateTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/releaseDateTitle" />
-
-                <TextView
-                    android:id="@+id/moviePlotTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
-                    android:text="Plot"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/releaseDateTextView" />
-
-                <TextView
-                    android:id="@+id/moviePlotText"
-                    android:layout_width="370dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/testWord"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/moviePlotTitle" />
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true">
 
 
-                <include
-                    android:id="@+id/trailerReview"
-                    layout="@layout/trailer_review"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/moviePlotText"
-                     />
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:id="@+id/detailmovieposter"
+                        android:layout_width="170dp"
+                        android:layout_height="135dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@mipmap/ic_launcher" />
+
+                    <TextView
+                        android:id="@+id/ratingtextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_toRightOf="@+id/detailmovieposter"
+                        android:text="Rating"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/ratingtextViewInformation"
+                        android:layout_width="23dp"
+                        android:layout_height="19dp"
+                        android:layout_below="@+id/ratingtextView"
+                        android:layout_marginLeft="28dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toRightOf="@+id/detailmovieposter"
+                        android:text="0.0" />
+
+
+                    <TextView
+                        android:id="@+id/releaseDateTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="Release Date"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:layout_toRightOf="@+id/detailmovieposter"
+                        android:layout_below="@+id/ratingtextViewInformation" />
+
+                    <TextView
+                        android:id="@+id/releaseDateTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="28dp"
+                        android:layout_marginTop="8dp"
+                        android:text="11-11-2011"
+                        android:layout_toRightOf="@+id/detailmovieposter"
+                        android:layout_below="@+id/releaseDateTitle" />
+
+
+                    <TextView
+                        android:id="@+id/moviePlotTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="32dp"
+                        android:text="Plot"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold"
+                        android:layout_below="@+id/detailmovieposter" />
+
+                    <TextView
+                        android:id="@+id/moviePlotText"
+                        android:layout_width="370dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/testWord"
+                        android:layout_below="@+id/moviePlotTitle" />
+
+                    <include
+                        android:id="@+id/trailerReview"
+                        layout="@layout/trailer_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_below="@+id/moviePlotText"
+                        />
+
+
+                </RelativeLayout>
 
             </LinearLayout>
 
